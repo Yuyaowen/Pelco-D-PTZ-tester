@@ -23,6 +23,10 @@
 #define ZOOM_TELE     0x20
 #define ZOOM_WIDE     0x40
 #define FOCUS_FAR     0x80
+
+#define SET_PRESET    0x03
+#define DEL_PRESET    0x05
+#define CALL_PRESET   0x07
 /* End cmd2 */
 
 struct __attribute__((packed)) pelco_d {
@@ -47,5 +51,9 @@ extern struct pelco_d *protocol_left_top(unsigned char cam_addr, unsigned char p
 extern struct pelco_d *protocol_right_top(unsigned char cam_addr, unsigned char pan_speed, unsigned char tilt_speed);
 extern struct pelco_d *protocol_left_bottom(unsigned char cam_addr, unsigned char pan_speed, unsigned char tilt_speed);
 extern struct pelco_d *protocol_right_bottom(unsigned char cam_addr, unsigned char pan_speed, unsigned char tilt_speed);
+
+extern struct pelco_d *set_preset(unsigned char cam_addr, unsigned char num);
+extern struct pelco_d *call_preset(unsigned char cam_addr, unsigned char num);
+extern struct pelco_d *del_preset(unsigned char cam_addr, unsigned char num);
 
 #endif // PROTOCOL_H

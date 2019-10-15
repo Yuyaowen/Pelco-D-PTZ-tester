@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QString>
+//#include <SleeperThread>
 #include <QtSerialPort>
 #include "protocol.h"
 
@@ -31,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     addr = ui->ptzAddr->value();
+    preset_num = ui->presetNum->value();
 }
 
 MainWindow::~MainWindow()
@@ -274,4 +277,107 @@ void MainWindow::on_baudRate_currentTextChanged(const QString &arg1)
 {
     baudRate = arg1.toInt();
     comPort->setBaudRate(baudRate);
+}
+
+void MainWindow::on_setPreset_clicked()
+{
+    send_cmd((void *)set_preset(addr, preset_num), PELCO_D_LEN);
+}
+
+void MainWindow::on_callPreset_clicked()
+{
+    send_cmd((void *)call_preset(addr, preset_num), PELCO_D_LEN);
+}
+
+void MainWindow::on_delPreset_clicked()
+{
+    send_cmd((void *)del_preset(addr, preset_num), PELCO_D_LEN);
+}
+
+void MainWindow::on_presetNum_valueChanged(int arg1)
+{
+    preset_num = arg1;
+}
+
+void MainWindow::on_changeAddr_clicked()
+{
+    send_cmd((void *)set_preset(addr, 255), PELCO_D_LEN);
+    send_cmd((void *)set_preset(addr, 254), PELCO_D_LEN);
+    send_cmd((void *)set_preset(addr, ui->setAddr->value()), PELCO_D_LEN);
+
+    addr = ui->setAddr->value();
+    ui->ptzAddr->setValue(addr);
+}
+
+void MainWindow::on_changeBaud_clicked()
+{
+    send_cmd((void *)set_preset(addr, 200), PELCO_D_LEN);
+    baudRate = ui->setBaud->currentText().toInt();
+    send_cmd((void *)set_preset(addr, baudRate / 100), PELCO_D_LEN);
+}
+
+void MainWindow::on_leftLimit_clicked()
+{
+    send_cmd((void *)set_preset(addr, 9), PELCO_D_LEN);
+}
+
+void MainWindow::on_rightLimit_clicked()
+{
+    send_cmd((void *)set_preset(addr, 10), PELCO_D_LEN);
+}
+
+void MainWindow::on_startLimit_clicked()
+{
+    send_cmd((void *)call_preset(addr, 12), PELCO_D_LEN);
+}
+
+void MainWindow::on_cancelLimit_clicked()
+{
+    send_cmd((void *)set_preset(addr, 12), PELCO_D_LEN);
+}
+
+void MainWindow::on_sixDu_toggled(bool checked)
+{
+    if (checked) {
+        send_cmd((void *)set_preset(addr, 15), PELCO_D_LEN);
+    }
+}
+
+void MainWindow::on_twDu_toggled(bool checked)
+{
+    if (checked) {
+        send_cmd((void *)set_preset(addr, 16), PELCO_D_LEN);
+    }
+}
+
+void MainWindow::on_twtyDu_toggled(bool checked)
+{
+    if (checked) {
+        send_cmd((void *)set_preset(addr, 17), PELCO_D_LEN);
+    }
+}
+
+void MainWindow::on_startCruise_clicked()
+{
+    send_cmd((void *)call_preset(addr, 13), PELCO_D_LEN);
+}
+
+void MainWindow::on_stopCruise_clicked()
+{
+    send_cmd((void *)set_preset(addr, 13), PELCO_D_LEN);
+}
+
+void MainWindow::on_setWatch_clicked()
+{
+    send_cmd((void *)set_preset(addr, 11), PELCO_D_LEN);
+}
+
+void MainWindow::on_startWatch_clicked()
+{
+    send_cmd((void *)call_preset(addr, 14), PELCO_D_LEN);
+}
+
+void MainWindow::on_stopWatch_clicked()
+{
+    send_cmd((void *)set_preset(addr, 14), PELCO_D_LEN);
 }

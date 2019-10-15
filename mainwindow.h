@@ -45,6 +45,28 @@ private slots:
     void on_serialOpened_toggled(bool checked);
 
     void on_baudRate_currentTextChanged(const QString &arg1);
+    void on_setPreset_clicked();
+    void on_callPreset_clicked();
+    void on_delPreset_clicked();
+    void on_presetNum_valueChanged(int arg1);
+    void on_changeAddr_clicked();
+    void on_changeBaud_clicked();
+    void on_leftLimit_clicked();
+    void on_rightLimit_clicked();
+    void on_startLimit_clicked();
+    void on_cancelLimit_clicked();
+    void on_sixDu_toggled(bool checked);
+    void on_twDu_toggled(bool checked);
+    void on_twtyDu_toggled(bool checked);
+    void on_startCruise_clicked();
+    void on_stopCruise_clicked();
+
+
+    void on_setWatch_clicked();
+
+    void on_startWatch_clicked();
+
+    void on_stopWatch_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -63,6 +85,7 @@ private:
     unsigned char addr;
     unsigned char pan_speed;
     unsigned char tilt_speed;
+    unsigned char preset_num;
 };
 
 #endif // MAINWINDOW_H

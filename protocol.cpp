@@ -86,3 +86,18 @@ struct pelco_d *protocol_right_bottom(unsigned char cam_addr, unsigned char pan_
 {
     return pack_cmd(cam_addr, 0, DOWN | RIGHT, pan_speed, tilt_speed);
 }
+
+struct pelco_d *set_preset(unsigned char cam_addr, unsigned char num)
+{
+    return pack_cmd(cam_addr, 0, SET_PRESET, 0, num);
+}
+
+struct pelco_d *call_preset(unsigned char cam_addr, unsigned char num)
+{
+    return pack_cmd(cam_addr, 0, CALL_PRESET, 0, num);
+}
+
+struct pelco_d *del_preset(unsigned char cam_addr, unsigned char num)
+{
+    return pack_cmd(cam_addr, 0, DEL_PRESET, 0, num);
+}
