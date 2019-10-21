@@ -149,6 +149,8 @@ void MainWindow::send_cmd(void *dat, unsigned int len)
     if (isSerialOpened) {
         comPort->write((const char *)data, (qint64)len);
     }
+
+    free(dat);
 }
 
 void MainWindow::on_up_pressed()
